@@ -2,13 +2,13 @@ using UdonSharp;
 using MelonLoader;
 
 namespace UdonChipsSafe {
-	public class UdonChips : UdonSharpBehaviour {
+    public class UdonChips : UdonSharpBehaviour {
         private const string Category = nameof(UdonChips);
         private const string Name = "Money";
         static MelonPreferences_Entry<float> entry;
-		public float money = 1000;
+        public float money = 1000;
 
-		public string format = "$ {0:F0}";
+        public string format = "$ {0:F0}";
 
         static bool loaded = false;
         public void Start() {
@@ -23,5 +23,5 @@ namespace UdonChipsSafe {
             entry.Value = money;
             MelonPreferences.Save();
         }
-	}
+    }
 }
