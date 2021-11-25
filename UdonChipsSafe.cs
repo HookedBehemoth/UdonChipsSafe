@@ -7,7 +7,7 @@ using static FakeUdon.FakeUdonRegistry;
 namespace UdonChipsSafe {
     public class Starter : MelonMod {
         public override void OnApplicationStart() {
-            RegisterType<UdonChips>("c266c8322c0c75349b2f2d9a1c44aec1");
+            RegisterType<UCS.UdonChips>("c266c8322c0c75349b2f2d9a1c44aec1");
         }
     }
 }

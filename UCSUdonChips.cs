@@ -1,7 +1,7 @@
 using UdonSharp;
 using MelonLoader;
 
-namespace UdonChipsSafe {
+namespace UCS {
     public class UdonChips : UdonSharpBehaviour {
         private const string Category = nameof(UdonChips);
         private const string Name = "Money";
