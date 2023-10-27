@@ -1,0 +1,166 @@
+<Project>
+    <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+        <VRChatPath>C:\Program Files (x86)\Steam\steamapps\common\VRChat</VRChatPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(OS)' == 'Unix' ">
+        <VRChatPath>$(HOME)/.steam/steam/steamapps/common/VRChat</VRChatPath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+
+        <AssemblySearchPaths>
+            {RawFileName};
+            $(VRChatPath)/MelonLoader/net6;
+            $(VRChatPath)/MelonLoader/Il2CppAssemblies;
+            $(VRChatPath)/Mods;
+            $(VRChatPath)/MelonLoader/Managed
+        </AssemblySearchPaths>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="MelonLoader">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="0Harmony">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <!-- Mod libraries -->
+        <Reference Include="ActionMenuApi">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <!-- Il2Cpp -->
+        <Reference Include="Il2Cppmscorlib">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppSystem">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppSystem.Core">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppSystem.Runtime">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2Cpp">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppInterop.Common">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppInterop.Runtime">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppInterop.HarmonySupport">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <!-- Game assemblies -->
+        <Reference Include="Assembly-CSharp">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppVRC.Udon">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppVRCSDKBase">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppVRCSDK2">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppVRCSDK3">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppVRCSDK3A">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppVRCCore-Standalone">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppVRCCore-Editor">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppVRC.Udon">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppVRC.Udon.Common">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <!-- Game libraries -->
+        <Reference Include="Newtonsoft.Json">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <!-- Unity -->
+        <Reference Include="UnityEngine.CoreModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="UnityEngine.AnimationModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="UnityEngine.ParticleSystemModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="UnityEngine.AudioModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="UnityEngine.AssetBundleModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Unity.Postprocessing.Runtime">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+    </ItemGroup>
+    
+    <PropertyGroup>
+        <OutputPath>$(MsBuildThisFileDirectory)\Output\$(Configuration)\</OutputPath>
+        <LangVersion>preview</LangVersion>
+    </PropertyGroup>
+
+    <Target Name="PostClean" AfterTargets="Clean">
+        <RemoveDir Directories="$(MsBuildThisFileDirectory)\Output"/>
+        <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+        <RemoveDir Directories="$(BaseOutputPath)" />
+    </Target>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(VRChatPath)')">
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(VRChatPath)/Mods" />
+        <Message Text="Copied $(TargetFileName) to $(VRChatPath)\Mods" Importance="high" />
+    </Target>
+</Project>
